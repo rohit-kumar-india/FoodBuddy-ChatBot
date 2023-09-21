@@ -1,0 +1,51 @@
+Chatbot Platforms - Dialogflow, RASA, Amazon Lex
+
+Setting up Dialogflow chatbot
+1. Go to https://cloud.google.com/dialogflow
+2. Sign in with your google account
+3. Go down and click on 'go to console' under 'Dialogflow ES (Essentials)'
+4. Create new Agent(Chatbot)
+5. Modify Welcome & Fallback intent.
+6. Create new intents and add training phrases, text response.
+7. Create Entities for mapping variables in the training phrases.
+8. Map variables in the training phrases to entities by selecting and right click on the text/number.
+9. Add contexts in intents under contexts section.
+
+Testing Dialogflow chatbot
+1. Go to Integrations
+2. Under 'Text based' click on 'Web demo'
+3. Click Enable and Go to the link provided.
+4. Chatbot will open in new tab for testing purpose.
+
+Integrate Backend to chatbot.
+1. In the bottom of each intent there is a Fullfillment section.
+2. Enable webhook call for this intent under Fullfillment section for each intent for which we want to integrate backend call.
+3. Go to Fullfillment of Main Menu.
+4. Enable Webhook and enter backend server URL, then click save.
+
+Setup Database.
+1. Download and install any database if you don't have.(Eg- MYSQL Workbench, SSMS)
+2. Import the Database backup.
+3. or Create Database and 3 Tables mentioned below.
+4. [dbo].[food_items]([item_id] [int] NOT NULL,[name] [varchar](255) NULL,[price] [decimal](10, 2) NULL)
+5. [dbo].[order_tracking]([order_id] [int] NOT NULL,[status] [varchar](255) NULL)
+6. [dbo].[orders]([order_id] [int] NOT NULL,[item_id] [int] NOT NULL,[quantity] [int] NULL,[total_price] [decimal](10, 2) NULL)
+7. Create PROCEDURE [dbo].[sp_AddOrderDetails] to add order details in order and order_tracking table.
+
+Setup Backend - using Python FastApi
+1. Download and install Python in system.
+2. Download and install any Python editor.(eg- PyCharm, VS Code).
+3. Install FastApi Module and uvicorn (to run FastApi backend)
+	pip install fastapi[all]
+4. Install sql python connector as per your database.
+	for MYSQL Workbench -> pip install mysql-connector-python
+	for SSMS            -> pip install pyodbc
+5. Start Backend Server using below command in terminal.
+	uvicorn main:app --reload
+	
+Download ngrok for converting http server url to https as Chatbot fullfillment only takes https url for backend integration.
+go to the folder where you have downloaded ngrok.exe and execute below command
+ngrok http {port number of server}(eg- 8000)
+this will create a https Url. Use this URL in chatbot for accessing Backend.
+
+Backend Code is available.
